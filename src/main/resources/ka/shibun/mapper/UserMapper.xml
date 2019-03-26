@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="ka.shibun.mapper.UserMapper" >
+  <resultMap id="BaseResultMap" type="ka.shibun.domain.User" >
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="username" property="username" jdbcType="VARCHAR" />
+    <result column="password" property="password" jdbcType="VARCHAR" />
+    <result column="name" property="name" jdbcType="VARCHAR" />
+    <result column="identitycard" property="identitycard" jdbcType="VARCHAR" />
+    <result column="department_id" property="departmentId" jdbcType="BIGINT" />
+    <result column="jointime" property="jointime" jdbcType="DATE" />
+    <result column="phonenum" property="phonenum" jdbcType="BIGINT" />
+    <result column="education_id" property="educationId" jdbcType="BIGINT" />
+    <result column="address" property="address" jdbcType="VARCHAR" />
+    <result column="sex_id" property="sexId" jdbcType="BIGINT" />
+    <result column="birthday" property="birthday" jdbcType="DATE" />
+    <result column="remark" property="remark" jdbcType="VARCHAR" />
+    <result column="state" property="state" jdbcType="BIT" />
+  </resultMap>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from t_user
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="ka.shibun.domain.User" >
+    <selectKey resultType="java.lang.Long" keyProperty="id" order="BEFORE" >
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into t_user (id, username, password, 
+      name, identitycard, department_id, 
+      jointime, phonenum, education_id, 
+      address, sex_id, birthday, 
+      remark, state)
+    values (#{id,jdbcType=BIGINT}, #{username,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR}, 
+      #{name,jdbcType=VARCHAR}, #{identitycard,jdbcType=VARCHAR}, #{departmentId,jdbcType=BIGINT}, 
+      #{jointime,jdbcType=DATE}, #{phonenum,jdbcType=BIGINT}, #{educationId,jdbcType=BIGINT}, 
+      #{address,jdbcType=VARCHAR}, #{sexId,jdbcType=BIGINT}, #{birthday,jdbcType=DATE}, 
+      #{remark,jdbcType=VARCHAR}, #{state,jdbcType=BIT})
+  </insert>
+  <update id="updateByPrimaryKey" parameterType="ka.shibun.domain.User" >
+    update t_user
+    set username = #{username,jdbcType=VARCHAR},
+      password = #{password,jdbcType=VARCHAR},
+      name = #{name,jdbcType=VARCHAR},
+      identitycard = #{identitycard,jdbcType=VARCHAR},
+      department_id = #{departmentId,jdbcType=BIGINT},
+      jointime = #{jointime,jdbcType=DATE},
+      phonenum = #{phonenum,jdbcType=BIGINT},
+      education_id = #{educationId,jdbcType=BIGINT},
+      address = #{address,jdbcType=VARCHAR},
+      sex_id = #{sexId,jdbcType=BIGINT},
+      birthday = #{birthday,jdbcType=DATE},
+      remark = #{remark,jdbcType=VARCHAR},
+      state = #{state,jdbcType=BIT}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select id, username, password, name, identitycard, department_id, jointime, phonenum, 
+    education_id, address, sex_id, birthday, remark, state
+    from t_user
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <select id="selectAll" resultMap="BaseResultMap" >
+    select id, username, password, name, identitycard, department_id, jointime, phonenum, 
+    education_id, address, sex_id, birthday, remark, state
+    from t_user
+  </select>
+</mapper>
